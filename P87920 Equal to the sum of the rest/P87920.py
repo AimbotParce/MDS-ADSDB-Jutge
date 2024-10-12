@@ -1,5 +1,5 @@
-import logging as log
 import pathlib
+import sys
 from typing import Iterable, TextIO
 
 import yogi
@@ -40,10 +40,8 @@ def hasSumOfRest(numbers: list[int]) -> bool:
 
 
 if __name__ == "__main__":
-    log.basicConfig(level=log.INFO, format="%(msg)s")
-
     input_file = pathlib.Path(__file__).parent / "demo_input.txt"
     input_buffer = input_file.open()
 
-    for case in generateCases(input_buffer=input_buffer):
-        log.info("YES" if hasSumOfRest(case) else "NO")
+    for case in generateCases(input_buffer=sys.stdin):
+        print("YES" if hasSumOfRest(case) else "NO")

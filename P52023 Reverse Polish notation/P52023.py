@@ -42,7 +42,7 @@ operations: dict[Operator, Operation] = {
 }
 
 
-def operate(operation: Iterable[Token]):
+def operate(operation: Iterable[Token]) -> Number:
     number_stack: deque[Number] = deque()  # A stack registry of all the numbers we're
     # encountering in the computation
     for token in operation:

@@ -1,6 +1,6 @@
+import sys
 from collections import deque
-
-import yogi
+from typing import Iterable, TextIO
 
 # The list of "opening" and "closing" characters. Each opening character must be
 # in the same position in the "openers" list as their closing character is in
@@ -36,11 +36,20 @@ def checkParenthesis(line: str) -> bool:
     return len(opener_stack) == 0
 
 
-if __name__ == "__main__":
-    # input_file = pathlib.Path(__file__).parent / "demo_input.txt"
-    # input_buffer = input_file.open()
+def generateCases(input_buffer: TextIO) -> Iterable[str]:
+    """
+    Given an open file buffer, yield the lines on it as strings.
+    """
+    for line in input_buffer:
+        line = line.strip()
+        if not line:
+            return  # If the line is empty, we're done with the file
 
-    for case in yogi.tokens(str):
+        yield from line.split()  # Split the line by whitespace and yield each part
+
+
+if __name__ == "__main__":
+    for case in generateCases(input_buffer=sys.stdin):
         if checkParenthesis(case):
             print(f"{case} is correct")
         else:

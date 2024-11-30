@@ -14,7 +14,7 @@ def tokenGenerator(input_buffer: TextIO) -> Iterable[str]:
     for line in input_buffer:
         line = line.strip()
         if not line:
-            continue  # Skip empty lines
+            return  # Skip empty lines
         yield from line.split()
 
 

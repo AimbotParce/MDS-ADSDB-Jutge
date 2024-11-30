@@ -17,6 +17,8 @@ def readSplitLines(input_buffer: TextIO) -> Iterable[list[str]]:
     for line in input_buffer:
         line = line.strip()
         line = re.sub(" +", " ", line)  # This will remove duplicate whitespaces from the line
+        if not line:
+            return  # If the line is empty, we're done with the file
         yield line.split(" ")  # And split the line into tokens
 
 

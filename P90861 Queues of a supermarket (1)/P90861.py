@@ -124,4 +124,7 @@ if __name__ == "__main__":
     print("FINAL CONTENTS")
     print("--------------")
     for j, queue_content in enumerate(manager.getContents(), start=1):
-        print(f"queue {j}: {' '.join(queue_content)}")
+        if len(queue_content) == 0:
+            print(f"queue {j}:")
+        else:
+            print(f"queue {j}:", " ".join(queue_content))

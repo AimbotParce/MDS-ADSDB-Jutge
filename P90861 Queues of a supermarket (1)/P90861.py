@@ -63,18 +63,18 @@ def readHeader(input_buffer: TextIO) -> list[deque[str]]:
     initial_configuration : list[deque[str]]
         The initial configuration of the queues.
     """
-    num_queues = yogi.Yogi(input_buffer).scan(int)
+    num_queues = int(input_buffer.readline().strip())
     if num_queues is None:
         raise ValueError(f"Could not read num_queues: {num_queues}")
     initial_configuration: list[deque[str]] = []
     for _ in range(num_queues):
         line = input_buffer.readline()
-        line = line.strip(" \n\r")
+        line = line.strip()
         line = re.sub(" +", " ", line)  # This will remove duplicate whitespaces from the line
         if line == "":
             queue_configuration = []
         else:
-            queue_configuration = line.split(" ")  # And split the line into tokens
+            queue_configuration = line.split()  # And split the line into tokens
         initial_configuration.append(deque(queue_configuration))
 
     # Before continuing, there's an empty line that we need to skip

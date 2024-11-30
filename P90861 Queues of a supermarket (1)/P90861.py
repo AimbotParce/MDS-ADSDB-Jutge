@@ -14,7 +14,7 @@ def tokenGenerator(input_buffer: TextIO) -> Iterable[str]:
     for line in input_buffer:
         line = line.strip()
         if not line:
-            return
+            continue  # Skip empty lines
         yield from line.split()
 
 
@@ -76,6 +76,9 @@ def readHeader(input_buffer: TextIO) -> list[deque[str]]:
         else:
             queue_configuration = line.split(" ")  # And split the line into tokens
         initial_configuration.append(deque(queue_configuration))
+
+    # Before continuing, there's an empty line that we need to skip
+    input_buffer.readline()
 
     return initial_configuration
 

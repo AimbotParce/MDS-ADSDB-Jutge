@@ -1,4 +1,3 @@
-import pathlib
 import re
 import sys
 from collections import deque
@@ -9,6 +8,14 @@ import yogi
 EntersEvent: TypeAlias = tuple[Literal["ENTERS"], str, int]
 LeavesEvent: TypeAlias = tuple[Literal["LEAVES"], int]
 Event: TypeAlias = Union[EntersEvent, LeavesEvent]
+
+
+def tokenGenerator(input_buffer: TextIO) -> Iterable[str]:
+    for line in input_buffer:
+        line = line.strip()
+        if not line:
+            return
+        yield from line.split()
 
 
 def listenEvents(input_buffer: TextIO) -> Iterable[Event]:
@@ -32,15 +39,12 @@ def listenEvents(input_buffer: TextIO) -> Iterable[Event]:
     The parsed events in the form of tuples, the first element of which is the
     event type, and the rest of which is its data.
     """
-    reader = yogi.Yogi(input_buffer)
-    while True:
-        event_type = reader.scan(str)  # Read a single element of the text
+    generator = tokenGenerator(input_buffer)
+    for event_type in generator:  # Read a single element of the text
         if event_type == "ENTERS":
-            yield (event_type, reader.scan(str), reader.scan(int))
+            yield (event_type, next(generator), int(next(generator)))
         elif event_type == "LEAVES":
-            yield (event_type, reader.scan(int))
-        elif event_type is None:
-            return  # Stop iteration
+            yield (event_type, int(next(generator)))
 
 
 def readHeader(input_buffer: TextIO) -> list[deque[str]]:

@@ -5,8 +5,9 @@ T = TypeVar("T", bound=Any)
 
 def position(x: T, v: list[T], left: int = 0, right: int = -1) -> int:
     """
-    Search `x` in a sorted vector `v` and return its position. The function
-    will limit the search to `v[left:right]`. Whenever x is not present in the
+    Search `x` in a sorted sub-vector `v[left:right]` and return its position
+    inside said sub-vector. The "real" position of `x` would be `left + i`,
+    where `i` is the result of this function. Whenever `x` is not present in the
     sub-vector `v[left:right]`, or `left` and `right` have improper values, `-1`
     will be returned.
 
@@ -28,30 +29,25 @@ def position(x: T, v: list[T], left: int = 0, right: int = -1) -> int:
     """
     if left < 0 or left > len(v) or right < -1 or right >= len(v):
         return -1
-    if right == -1:
+    if right == -1:  # For some reason, statement says that right can be -1.
         right = len(v) - 1
     if left > right:
         return -1
     if left == right:
         if v[left] == x:
-            return left
+            return 0
         else:
             return -1
-    midpoint = (left + right) // 2
-    if x > v[midpoint]:
-        return position(x=x, v=v, left=midpoint + 1, right=right)
-    elif x < v[midpoint]:
-        return position(x=x, v=v, left=left, right=midpoint)
+    midpoint = (right - left) // 2
+    if x > v[midpoint + left]:
+        return position(x=x, v=v, left=left + midpoint + 1, right=right) + midpoint + 1
     else:
-        # In this case, x == v[midpoint]. We wouldn't need this case because we
-        # added a statement to check the base case, however we might skip some
-        # iterations if we add this else statement.
-        return midpoint
+        return position(x=x, v=v, left=left, right=left + midpoint)
 
 
 if __name__ == "__main__":
     example_vector = sorted([5, 12, 6, 7, 2, 4, 7, 21, 67, 2, 51, 34, 5, 1, 345, 17, 3, 524, 17, 35, 42, 51])
-    for value in example_vector:
+    for j, value in enumerate(example_vector):
         pos = position(x=value, v=example_vector)
+        print(f"v[{j}] = {value} -> Found v[{pos}] = {example_vector[pos]}")
         assert example_vector[pos] == value, f"Value {value} was not found correctly"
-        print(f"Position of {value}: {pos}")

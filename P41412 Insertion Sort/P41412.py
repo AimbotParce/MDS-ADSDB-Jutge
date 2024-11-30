@@ -1,6 +1,10 @@
 from typing import Any
 
 # def stringify(v: list[Any], query: int, head: int):
+#     """
+#     Return a string representation of the vector `v`, highlighting the elements
+#     at positions `query` and `head`.
+#     """
 #     ln1 = []
 #     ln2 = []
 #     for j, val in enumerate(v):

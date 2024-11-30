@@ -1,24 +1,23 @@
-import pathlib
 import sys
 from typing import Iterable, TextIO
 
 import yogi
 
 
-def generateCases(input_buffer: TextIO) -> Iterable[list[int]]:
+def generateCases() -> Iterable[list[int]]:
     """
     Given an open file buffer, yield the lists on it defined as:
     <n> <n elements> <m> <m elements>
     of type int.
     """
-    input_buffer.seek(0)  # Reset read pointer
-    reader = yogi.Yogi(input_buffer)
-    tokens_generator = reader.tokens(int)
-    for length in tokens_generator:  # Read a single element of the text
-        # This element will be considered to be the length of the next case.
-        current_case = list(next(tokens_generator) for _ in range(length))
+    while True:
+        # Read the first integer of the line
+        length = yogi.scan(int)
+        if length is None:
+            # If we reached the end of the file, break the loop
+            break
         # Read that amount of elements from the text
-        yield current_case
+        yield list(yogi.scan(float) for _ in range(length))
 
 
 def hasSumOfRest(numbers: list[int]) -> bool:
@@ -39,9 +38,5 @@ def hasSumOfRest(numbers: list[int]) -> bool:
     return False
 
 
-if __name__ == "__main__":
-    input_file = pathlib.Path(__file__).parent / "demo_input.txt"
-    input_buffer = input_file.open()
-
-    for case in generateCases(input_buffer=sys.stdin):
-        print("YES" if hasSumOfRest(case) else "NO")
+for case in generateCases():
+    print("YES" if hasSumOfRest(case) else "NO")

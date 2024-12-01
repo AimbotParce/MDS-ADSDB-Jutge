@@ -141,9 +141,9 @@ if __name__ == "__main__":
     def is_empty(q_pool: list[LinkedQueue[int]], q: int) -> None:
         empty = q_pool[q].is_empty()
         if empty:
-            print(f"queue {q} is empty")
+            print(f"queue {q} is empty ")
         else:
-            print(f"queue {q} is not empty")
+            print(f"queue {q} is not empty ")
 
     def print_(q_pool: list[LinkedQueue[int]], q: int) -> None:
         print(f"queue {q}: {str(q_pool[q])}")

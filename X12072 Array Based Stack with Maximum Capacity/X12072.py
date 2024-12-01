@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Callable, ParamSpec, Protocol, Self, TypeVar
+from typing import Any, Callable, ParamSpec, Protocol, TypeVar
 
 from yogi import scan
 
@@ -39,7 +39,7 @@ class Stack(Protocol[T]):
 
     @staticmethod
     def check_resize(method: Callable[P, R]) -> Callable[P, R]:  # pyright: ignore
-        def wrapper(self: Self, *args: P.args, **kwargs: P.kwargs) -> R:
+        def wrapper(self, *args: P.args, **kwargs: P.kwargs) -> R:
             previous = sys.getsizeof(self._data)
             res = method(self, *args, **kwargs)
             current = sys.getsizeof(self._data)

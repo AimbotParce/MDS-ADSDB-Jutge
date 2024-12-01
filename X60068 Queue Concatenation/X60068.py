@@ -181,3 +181,6 @@ if __name__ == "__main__":
     queue_pool: ListFrom1[LinkedQueue[int]] = ListFrom1(LinkedQueue[int]() for _ in range(pool_count))
     for operation, queue, args in operationsGenerator(available_operations=operations, input_buffer=sys.stdin):
         operation(queue_pool, queue, *args)
+
+    for i, queue in enumerate(queue_pool, 1):
+        print(f"queue {i}: {str(queue)}")

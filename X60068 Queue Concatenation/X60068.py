@@ -131,7 +131,7 @@ if __name__ == "__main__":
         print(f"queue {q} last element: {e}")
 
     def concatenate(q_pool: list[LinkedQueue[int]], q1: int, q2: str) -> None:
-        q_pool[q1].concatenate(q_pool[int(q2) - 1])
+        q_pool[q1].concatenate(q_pool[int(q2)])
         print(f"queues {q1} and {q2} concatenated")
 
     def len_(q_pool: list[LinkedQueue[int]], q: int) -> None:

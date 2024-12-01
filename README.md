@@ -8,9 +8,9 @@ course from the MDS master at UPC.
 ## Table of contents
 ### 1. Introduction
    * [P87920](P87920%20Equal%20to%20the%20sum%20of%20the%20rest/P87920.py)   Equal to the sum of the rest
-   * [P81966](P81966%20Dichotomic%20search/P81966.py)   Dichotomic search
-   * [P41412](P41412%20Insertion%20sort/P41412.py)   Insertion sort
-   * [P52205](P52205%20Mergesort/P52205.py)   Mergesort
+   * [P81966](P81966%20Dichotomic%20Search/P81966.py)   Dichotomic search
+   * [P41412](P41412%20Insertion%20Sort/P41412.py)   Insertion sort
+   * [P52205](P52205%20Merge%20Sort/P52205.py)   Mergesort
 ### 2. Stacks and Queues
    * [P52023](P52023%20Reverse%20Polish%20notation/P52023.py)   Reverse Polish notation
    * [P69643](P69643%20Checking%20parenthesis/P69643.py)   Checking parenthesis

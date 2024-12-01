@@ -37,7 +37,7 @@ class LinkedQueue(Generic[T]):
 
     def __str__(self):
         """Return a string representation of the queue."""
-        return " -> ".join(str(item) for item in self)
+        return " ".join(str(item) for item in self)
 
     # ---- Length methods ----
 

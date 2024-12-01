@@ -99,7 +99,7 @@ class FixedArrayStack(Stack):
         """
         Create an empty stack with a fixed maximum capacity.
         """
-        if maxlen <= 0:
+        if maxlen < 0:
             raise ValueError("maxlen must be positive")
         self._data = [None] * maxlen
         self._maxlen = maxlen

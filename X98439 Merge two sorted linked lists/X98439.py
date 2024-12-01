@@ -184,16 +184,76 @@ class PositionalList(_DoublyLinkedBase[T]):
         original._element = e
         return old_value
 
-    def merge(self, other):
+    def merge(self, other: "PositionalList[T]") -> None:
         """
         Pre: self and other are two lists sorted in ascending order.
         Post: After the merge operation 'self' contains its previous
               elements and all the elements in 'other' is ascending
-              order. Furhtermore, 'other' is empty.
-        Observation: Because 'other' must be empty after carring out
+              order. Furthermore, 'other' is empty.
+        Observation: Because 'other' must be empty after carrying out
            the merge operation, there is no need to create new modes.
         """
-        # Insert your code here
+        write_current = self._header  # The node to which we will write
+        # Our result will be stored in self. That's why write_current starts at self._header
+        self_current = self._header._next  # The node we are currently looking at in "self"
+        # We could remove the pointers from self._header to self_current and from self_current to self._header,
+        # but it is not necessary as we will later set them to some node in the updated self.
+        other_current = other._header._next  # The node we are currently looking at in "other"
+        other._header._next = other._trailer  # Disconnect the start of "other"
+        # We could also have removed the pointer from other_current to other._header, but it is not necessary
+        # as we will later set it to some node in the updated self.
+        while self_current is not self._trailer and other_current is not other._trailer:
+            # While we have not reached the end of either list
+            if self_current._element < other_current._element:
+                # We must add the self_current node to the result
+                # Update pointers
+                write_current._next = self_current
+                self_current._prev = write_current
+                # Move to the next node
+                write_current = self_current
+                self_current = self_current._next
+                # We don't update sizes here, because we are "removing" a node from self
+                # and adding it back to self, so the size remains the same
+            else:
+                # We must add the other_current node to the result
+                # Update pointers
+                write_current._next = other_current
+                other_current._prev = write_current
+                # Move to the next node
+                write_current = other_current
+                other_current = other_current._next
+                # Update sizes from both lists
+                other._size -= 1
+                self._size += 1
+                # We update sizes here, because if at the end there are still elements in "other",
+                # we want to know how many without having to traverse the list.
+
+        if self_current is not self._trailer:
+            # If we have reached the end of "other" but not of "self", we must add the
+            # remaining nodes of "self".
+            # Update pointers
+            write_current._next = self_current
+            self_current._prev = write_current
+            # We don't update trailer here, because the last node in the result is the last node in "self",
+            # so self._trailer already points to the last node in the result.
+        elif other_current is not other._trailer:
+            # If we have reached the end of "self" but not of "other", we must add the
+            # remaining nodes of "other".
+            # Update pointers
+            write_current._next = other_current
+            other_current._prev = write_current
+            # Because all the remaining nodes are from "other", the last node in the result
+            # is the last node in "other", so we must set self._trailer to the last node in "other".
+            self._trailer._prev = other._trailer._prev
+            # Whatever the last node in "other" was pointing to, it must be now pointing to self._trailer
+            other._trailer._prev._next = self._trailer
+            # Update sizes
+            self._size += other._size
+
+        # At the end, we must set the size of "other" to 0 and finish disconnecting the nodes
+        # from other. Other's header was already updated to point to other's trailer.
+        other._trailer._prev = other._header
+        other._size = 0
 
 
 if __name__ == "__main__":

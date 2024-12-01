@@ -54,9 +54,7 @@ class DynamicArrayStack(Stack):
 
     def __init__(self):
         """
-        Create an empty stack.
-
-        If maxlen <= 0, stack will not be able to exceed that length.
+        Create an empty stack without a maximum.
         """
         self._data = []
 
@@ -99,10 +97,10 @@ class FixedArrayStack(Stack):
 
     def __init__(self, maxlen: int):
         """
-        Create an empty stack.
-
-        If maxlen <= 0, stack will not be able to exceed that length.
+        Create an empty stack with a fixed maximum capacity.
         """
+        if maxlen <= 0:
+            raise ValueError("maxlen must be positive")
         self._data = [None] * maxlen
         self._maxlen = maxlen
         self._index = 0

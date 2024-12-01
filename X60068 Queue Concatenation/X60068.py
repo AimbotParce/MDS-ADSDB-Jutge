@@ -173,7 +173,11 @@ if __name__ == "__main__":
             queue, operation, *args = command.split()
             yield available_operations[operation], int(queue), args
 
+    class ListFrom1(list[T]):
+        def __getitem__(self, item) -> T:
+            return super().__getitem__(item - 1)
+
     pool_count = int(sys.stdin.readline())
-    queue_pool: list[LinkedQueue[int]] = [LinkedQueue[int]() for _ in range(pool_count)]
+    queue_pool: ListFrom1[LinkedQueue[int]] = ListFrom1(LinkedQueue[int]() for _ in range(pool_count))
     for operation, queue, args in operationsGenerator(available_operations=operations, input_buffer=sys.stdin):
-        operation(queue_pool, queue - 1, *args)
+        operation(queue_pool, queue, *args)

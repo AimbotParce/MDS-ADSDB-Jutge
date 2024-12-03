@@ -22,13 +22,13 @@ def checkParenthesis(line: str) -> bool:
         if opener_pos != -1:
             # If we encountered an opener, add one level to the stack
             opener_stack.append(opener_pos)
-        elif closer_pos != opener_stack.pop():
-            # If we encountered a closer, check if it's the one that we were
-            # expecting. Otherwise, break early, this is incorrect.
-            return False
         elif opener_pos == -1 and closer_pos == -1:
             # If it is neither, then we've found an illegal character.
             raise ValueError(f"Encountered illegal character: {char}")
+        elif len(opener_stack) == 0 or closer_pos != opener_stack.pop():
+            # If we encountered a closer, check if it's the one that we were
+            # expecting. Otherwise, break early, this is incorrect.
+            return False
         # It can't be both at the same time, because we've constructed the
         # openers and closers list such that they are mutually exclusive.
 

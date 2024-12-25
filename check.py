@@ -26,21 +26,21 @@ def setupLogging():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("program", type=Path, help="program to run")
-    parser.add_argument("--input", "-i", type=Path, nargs="+", help="input files")
-    parser.add_argument("--output", "-o", type=Path, nargs="+", help="output files")
+    parser.add_argument("--input", "-i", type=Path, nargs="+", help="input files", required=True)
+    parser.add_argument("--output", "-o", type=Path, nargs="+", help="output files", required=True)
     args = parser.parse_args()
 
     setupLogging()
 
     PROGRAM: Path = args.program
-    INPUT: list[Path] = args.input
-    OUTPUT: list[Path] = args.output
+    INPUTS: list[Path] = args.input
+    OUTPUTS: list[Path] = args.output
 
-    if len(INPUT) == 1 and INPUT[0].is_dir():
-        INPUTS = list(INPUT[0].glob("*"))
+    if len(INPUTS) == 1 and INPUTS[0].is_dir():
+        INPUTS = list(INPUTS[0].glob("*"))
 
-    if len(OUTPUT) == 1 and OUTPUT[0].is_dir():
-        OUTPUTS = list(OUTPUT[0].glob("*"))
+    if len(OUTPUTS) == 1 and OUTPUTS[0].is_dir():
+        OUTPUTS = list(OUTPUTS[0].glob("*"))
 
     if not len(INPUTS) == len(OUTPUTS):
         raise ValueError("Number of input files must be equal to number of output files")

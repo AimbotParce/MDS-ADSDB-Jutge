@@ -72,7 +72,9 @@ if __name__ == "__main__":
             )
             end = time.time()
         except subprocess.TimeoutExpired as e:
-            failed.append((input_file, output_file, f"Program {PROGRAM} timed out", expected_output, e.stdout))
+            failed.append(
+                (input_file, output_file, f"Program {PROGRAM} timed out", expected_output, e.stdout + "\n" + e.stderr)
+            )
             continue
         except subprocess.CalledProcessError as e:
             failed.append(
@@ -81,13 +83,15 @@ if __name__ == "__main__":
                     output_file,
                     f"Program {PROGRAM} failed with return code {e.returncode}",
                     expected_output,
-                    e.stdout,
+                    e.stdout + "\n" + e.stderr,
                 )
             )
             continue
 
         if result.stdout != expected_output:
-            failed.append((input_file, output_file, f"Output mismatch", expected_output, result.stdout))
+            failed.append(
+                (input_file, output_file, f"Output mismatch", expected_output, result.stdout + "\n" + result.stderr)
+            )
         else:
             results.append((input_file, output_file, end - start))
 

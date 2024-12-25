@@ -97,6 +97,7 @@ class LinkedQueue(Generic[T]):
         if self.is_empty():
             self._head = other._head
             self._tail = other._tail
+            self._size = other._size
         else:
             other_size = other._size  # Save the size of other to update the size of self later
             current = self._head  # Current will always be the last element "added" of this queue
@@ -112,7 +113,7 @@ class LinkedQueue(Generic[T]):
                 current._next = other._head
                 self._tail = other._tail
             # If there are elements left in self, we don't need to do anything
-        self._size += other_size  # Update the size of self
+            self._size += other_size  # Update the size of self
         other._size = 0
         other._head = None
         other._tail = None
@@ -124,8 +125,8 @@ if __name__ == "__main__":
     v: list[LinkedQueue[int]] = []
     for line in sys.stdin:
         line = line.strip()
-        if not line:
-            break
+        # if not line:
+        #     break
         v.append(LinkedQueue())
         for e in line.split():
             v[-1].enqueue(int(e))

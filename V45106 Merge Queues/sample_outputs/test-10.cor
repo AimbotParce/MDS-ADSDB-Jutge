@@ -1,0 +1,5 @@
+v[0]: 1
+v[1]: 2
+After calling v[0].merge(v[1])
+v[0]: 1 2
+v[1]: 

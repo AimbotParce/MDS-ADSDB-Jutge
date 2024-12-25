@@ -1,0 +1,10 @@
+queue 2: 5 enqueued
+queue 2: 3 enqueued
+queue 2: 7 enqueued
+queue 2: 1 enqueued
+queue 2 first element: 5
+queue 1: 
+queue 2: 5 3 7 1
+queues 2 and 1 concatenated
+queue 2: 5 3 7 1
+queue 1: 

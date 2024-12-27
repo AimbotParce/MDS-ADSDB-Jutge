@@ -129,5 +129,5 @@ if __name__ == "__main__":
 
     for _ in range(n_trees):
         tree = readTreePreOrder(yieldTokens(sys.stdin))
-        printInOrder(tree)
+        # printInOrder(tree)
         print(width(tree))

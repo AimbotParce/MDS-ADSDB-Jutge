@@ -1,4 +1,5 @@
 import sys
+from collections import deque
 from typing import Generator, Generic, Iterator, Literal, Optional, TextIO, TypeVar
 
 T = TypeVar("T")
@@ -97,19 +98,36 @@ def yieldTokens(io: TextIO) -> Generator[int, None, None]:
     "Yield integer tokens from a file-like object. Break on empty line."
     for line in io:
         line = line.strip()
-        if not line:
-            break
         for token in line.split():
             yield int(token)
 
 
-if __name__ == "__main__":
-    tree = readTreePreOrder(yieldTokens(sys.stdin))
-    # Read an empty line because yes....
-    next(sys.stdin)
+def width(tree: BTree[T]) -> int:
+    "Return the width of a binary tree"
 
-    for val in yieldTokens(sys.stdin):
-        if val in tree:
-            print(val, 1)
-        else:
-            print(val, 0)
+    levels = deque[BTree | None]([tree, None])  # None marks the end of a level
+    max_width = 0
+    current_width = 0
+    while levels:
+        node = levels.popleft()
+        if node is None:
+            max_width = max(max_width, current_width)
+            current_width = 0
+            if levels:
+                levels.append(None)
+        elif not node.is_empty:
+            current_width += 1
+            levels.append(node.left)
+            levels.append(node.right)
+
+    return max_width
+
+
+if __name__ == "__main__":
+    generator = yieldTokens(sys.stdin)
+    n_trees = next(generator)
+
+    for _ in range(n_trees):
+        tree = readTreePreOrder(yieldTokens(sys.stdin))
+        printInOrder(tree)
+        print(width(tree))

@@ -1,4 +1,5 @@
 import sys
+from collections import deque
 from typing import Generator, Generic, Optional, TextIO, TypeVar
 
 T = TypeVar("T")
@@ -98,12 +99,25 @@ def yieldTokens(io: TextIO) -> Generator[int, None, None]:
             yield int(token)
 
 
-def printPreOrder(tree: BTree) -> None:
+def printPreOrder(tree: BTree[T]) -> None:
     if tree.is_empty:
+        print()
         return
-    print(tree.val, end=" ")
-    printPreOrder(tree.left)
-    printPreOrder(tree.right)
+
+    values = deque[T]()
+    stack = deque[BTree[T]]()
+    stack.append(tree)
+
+    while stack:
+        node = stack.pop()
+        values.append(node.val)
+
+        if not node.right.is_empty:
+            stack.append(node.right)
+        if not node.left.is_empty:
+            stack.append(node.left)
+
+    print(" ".join(map(str, values)))
 
 
 if __name__ == "__main__":

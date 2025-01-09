@@ -13,7 +13,7 @@ class BTNode(Generic[T]):
         self.right = right
 
 
-class BTree(Generic[T]):
+class BSTree(Generic[T]):
     def __init__(self, root: BTNode[T] = None):
         "Create a binary tree from a root node. If root is None, the tree is empty."
         self.root = root
@@ -23,18 +23,18 @@ class BTree(Generic[T]):
         return self.root is None
 
     @property
-    def left(self) -> Optional["BTree[T]"]:
+    def left(self) -> Optional["BSTree[T]"]:
         "Return the left subtree of the tree. If the tree is empty, return an empty tree."
         if self.is_empty:
-            return BTree(None)
-        return BTree(self.root.left)
+            return BSTree(None)
+        return BSTree(self.root.left)
 
     @property
-    def right(self) -> Optional["BTree[T]"]:
+    def right(self) -> Optional["BSTree[T]"]:
         "Return the right subtree of the tree. If the tree is empty, return an empty tree."
         if self.is_empty:
-            return BTree(None)
-        return BTree(self.root.right)
+            return BSTree(None)
+        return BSTree(self.root.right)
 
     @property
     def val(self) -> T:
@@ -68,12 +68,12 @@ def _readNodesPreOrder(tokens: Iterator[T]) -> BTNode[T]:
     return BTNode(val, _readNodesPreOrder(tokens), _readNodesPreOrder(tokens))
 
 
-def readTreePreOrder(tokens: Iterator[T]) -> BTree[T]:
+def readTreePreOrder(tokens: Iterator[T]) -> BSTree[T]:
     "Read a binary tree from pre-order traversal"
-    return BTree(_readNodesPreOrder(tokens))
+    return BSTree(_readNodesPreOrder(tokens))
 
 
-def printInOrder(tree: BTree[T], path: str = "") -> None:
+def printInOrder(tree: BSTree[T], path: str = "") -> None:
     "Print in-order traversal of a binary tree"
     if tree.is_empty:
         return
@@ -106,6 +106,7 @@ def yieldTokens(io: TextIO) -> Generator[int, None, None]:
 
 
 if __name__ == "__main__":
+    next(sys.stdin)
     tree = readTreePreOrder(yieldTokens(sys.stdin))
     # Read an empty line because yes....
     next(sys.stdin)

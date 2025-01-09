@@ -213,7 +213,7 @@ def printStats(vector: list[int]):
         min_ = min(min_, i)
         max_ = max(max_, i)
     mean = s / len(vector)
-    print(f"minimum: {min_}, maximum: {max_}, mean: {mean:.4f}")
+    print(f"minimum: {min_}, maximum: {max_}, average: {mean:.4f}")
 
 
 if __name__ == "__main__":

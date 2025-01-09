@@ -1,0 +1,20 @@
+4
+Cristina 10 Tomas 27
+Francesc 70 Damia 25.5 Domenec 80
+
+Teresa 19 Toni 83 Carles 24
+
+LEAVES 1
+LEAVES 1
+ENTERS Amalia 30 4
+LEAVES 2
+LEAVES 1
+ENTERS Leo 22 1
+ENTERS Maria 20 3
+LEAVES 4
+LEAVES 4
+LEAVES 3
+ENTERS Carme 18 4
+LEAVES 2
+LEAVES -1
+LEAVES 2

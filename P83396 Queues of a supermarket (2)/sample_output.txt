@@ -1,0 +1,17 @@
+DEPARTS
+-------
+Tomas
+Cristina
+Domenec
+Toni
+Amalia
+Maria
+Francesc
+Damia
+
+FINAL CONTENTS
+--------------
+queue 1: Leo
+queue 2:
+queue 3:
+queue 4: Carles Teresa Carme

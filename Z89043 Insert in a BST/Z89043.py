@@ -1,6 +1,6 @@
 import sys
 from collections import deque
-from typing import Generator, Generic, Optional, TextIO, TypeVar
+from typing import Generator, Generic, Optional, Self, TextIO, TypeVar
 
 T = TypeVar("T")
 
@@ -24,14 +24,14 @@ class BTree(Generic[T]):
         return self.root is None
 
     @property
-    def left(self) -> Optional["BTree[T]"]:
+    def left(self) -> Optional[Self]:
         "Return the left subtree of the tree. If the tree is empty, return an empty tree."
         if self.is_empty:
-            return BTree(None)
+            return self.__class__(None)
         return self.__class__(self.root.left)
 
     @property
-    def right(self) -> Optional["BTree[T]"]:
+    def right(self) -> Optional[Self]:
         "Return the right subtree of the tree. If the tree is empty, return an empty tree."
         if self.is_empty:
             return self.__class__(None)
@@ -45,7 +45,7 @@ class BTree(Generic[T]):
         return self.root.val
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.root})"
+        return f"BTree({self.root})"
 
     def __str__(self) -> str:
         return str(self.root)

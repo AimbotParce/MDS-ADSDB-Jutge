@@ -1,5 +1,5 @@
 import sys
-from typing import Generator, Generic, Iterator, Literal, Optional, TextIO, TypeVar
+from typing import Generator, Generic, Iterator, Literal, Optional, Self, TextIO, TypeVar
 
 T = TypeVar("T")
 
@@ -13,7 +13,7 @@ class BTNode(Generic[T]):
         self.right = right
 
 
-class BSTree(Generic[T]):
+class BTree(Generic[T]):
     def __init__(self, root: BTNode[T] = None):
         "Create a binary tree from a root node. If root is None, the tree is empty."
         self.root = root
@@ -23,18 +23,18 @@ class BSTree(Generic[T]):
         return self.root is None
 
     @property
-    def left(self) -> Optional["BSTree[T]"]:
+    def left(self) -> Optional[Self]:
         "Return the left subtree of the tree. If the tree is empty, return an empty tree."
         if self.is_empty:
-            return BSTree(None)
-        return BSTree(self.root.left)
+            return self.__class__(None)
+        return self.__class__(self.root.left)
 
     @property
-    def right(self) -> Optional["BSTree[T]"]:
+    def right(self) -> Optional[Self]:
         "Return the right subtree of the tree. If the tree is empty, return an empty tree."
         if self.is_empty:
-            return BSTree(None)
-        return BSTree(self.root.right)
+            return self.__class__(None)
+        return self.__class__(self.root.right)
 
     @property
     def val(self) -> T:
@@ -55,9 +55,37 @@ class BSTree(Generic[T]):
             return False
         if self.root.val == val:
             return True
+        return val in self.left or val in self.right
+
+
+class BST(BTree[T]):
+    def __contains__(self, val: T) -> bool:
+        "Check if a value is in the tree"
+        if self.is_empty:
+            return False
+        if self.root.val == val:
+            return True
         if val < self.root.val:
             return val in self.left
         return val in self.right
+
+    def insert(self, val: T) -> None:
+        "Insert a value into the tree"
+        if self.is_empty:
+            self.root = BTNode(val)
+            return
+        elif self.root.val == val:
+            return
+        elif val < self.root.val:
+            if self.left.is_empty:
+                self.root.left = BTNode(val)
+            else:
+                self.left.insert(val)
+        else:
+            if self.right.is_empty:
+                self.root.right = BTNode(val)
+            else:
+                self.right.insert(val)
 
 
 def _readNodesPreOrder(tokens: Iterator[T]) -> BTNode[T]:
@@ -68,12 +96,12 @@ def _readNodesPreOrder(tokens: Iterator[T]) -> BTNode[T]:
     return BTNode(val, _readNodesPreOrder(tokens), _readNodesPreOrder(tokens))
 
 
-def readTreePreOrder(tokens: Iterator[T]) -> BSTree[T]:
+def readTreePreOrder(tokens: Iterator[T]) -> BST[T]:
     "Read a binary tree from pre-order traversal"
-    return BSTree(_readNodesPreOrder(tokens))
+    return BST(_readNodesPreOrder(tokens))
 
 
-def printInOrder(tree: BSTree[T], path: str = "") -> None:
+def printInOrder(tree: BST[T], path: str = "") -> None:
     "Print in-order traversal of a binary tree"
     if tree.is_empty:
         return

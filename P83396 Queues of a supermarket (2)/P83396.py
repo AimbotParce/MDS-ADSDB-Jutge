@@ -2,10 +2,7 @@ import math
 import re
 import sys
 from collections import deque
-from itertools import batched
 from typing import *
-
-import yogi
 
 T = TypeVar("T")
 
@@ -264,6 +261,15 @@ def readHeader(input_buffer: TextIO) -> list[PriorityQueue[str]]:
     input_buffer.readline()
 
     return initial_configuration
+
+
+def batched(iterable: Iterable[T], n: int) -> Generator[Tuple[T, ...], None, None]:
+    iterable = iter(iterable)
+
+    if n < 1:
+        raise ValueError("N cannot be lower than 1")
+    for first in iterable:
+        yield tuple([first, *(next(iterable) for _ in range(n - 1))])
 
 
 class QueueManager:

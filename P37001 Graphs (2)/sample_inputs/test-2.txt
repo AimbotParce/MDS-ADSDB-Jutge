@@ -1,0 +1,16 @@
+8
+bcn prs mad rom lsb ber lon dub
+
+10
+bcn prs
+prs mad
+rom lsb
+rom dub
+ber lon
+lsb dub
+dub lsb
+mad lon
+bcn ber
+ber bcn
+
+rom bcn

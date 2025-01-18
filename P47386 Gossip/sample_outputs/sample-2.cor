@@ -1,0 +1,16 @@
+COUPLES:
+ALONE:
+----------
+COUPLES:
+a ba
+aab ac
+ab b
+ALONE:
+----------
+COUPLES:
+a ba
+ab b
+ALONE:
+aab
+ac
+----------

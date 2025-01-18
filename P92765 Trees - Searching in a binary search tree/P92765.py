@@ -134,6 +134,7 @@ def yieldTokens(io: TextIO) -> Generator[int, None, None]:
 
 
 if __name__ == "__main__":
+    next(sys.stdin)
     tree = readTreePreOrder(yieldTokens(sys.stdin))
     # Read an empty line because yes....
     next(sys.stdin)

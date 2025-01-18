@@ -88,41 +88,6 @@ class BST(BTree[T]):
                 self.right.insert(val)
 
 
-def _readNodesPreOrder(tokens: Iterator[T]) -> BTNode[T]:
-    "Read a binary tree from pre-order traversal"
-    val = next(tokens)
-    if val == -1 or val is None:
-        return None
-    return BTNode(val, _readNodesPreOrder(tokens), _readNodesPreOrder(tokens))
-
-
-def readTreePreOrder(tokens: Iterator[T]) -> BST[T]:
-    "Read a binary tree from pre-order traversal"
-    return BST(_readNodesPreOrder(tokens))
-
-
-def printInOrder(tree: BST[T], path: str = "") -> None:
-    "Print in-order traversal of a binary tree"
-    if tree.is_empty:
-        return
-
-    printInOrder(tree.left, path=path + "l")
-
-    lines = ""
-    if path:
-        last = path[0]
-        for c in path[1:]:
-            if c != last:
-                lines += " │"
-            else:
-                lines += "  "
-            last = c
-        lines += " ┌" if path[-1] == "l" else " └"
-
-    print(lines + ">" + str(tree.val))
-    printInOrder(tree.right, path=path + "r")
-
-
 def yieldTokens(io: TextIO) -> Generator[int, None, None]:
     "Yield integer tokens from a file-like object. Break on empty line."
     for line in io:
@@ -133,13 +98,17 @@ def yieldTokens(io: TextIO) -> Generator[int, None, None]:
             yield int(token)
 
 
-if __name__ == "__main__":
-    tree = readTreePreOrder(yieldTokens(sys.stdin))
-    # Read an empty line because yes....
-    next(sys.stdin)
+def printPreOrder(tree: BTree) -> None:
+    if tree.is_empty:
+        return
+    print(tree.val)
+    printPreOrder(tree.left)
+    printPreOrder(tree.right)
 
+
+if __name__ == "__main__":
+    tree = BST[int]()
     for val in yieldTokens(sys.stdin):
-        if val in tree:
-            print(val, 1)
-        else:
-            print(val, 0)
+        tree.insert(val)
+
+    printPreOrder(tree)

@@ -73,7 +73,13 @@ if __name__ == "__main__":
             end = time.time()
         except subprocess.TimeoutExpired as e:
             failed.append(
-                (input_file, output_file, f"Program {PROGRAM} timed out", expected_output, e.stdout + "\n" + e.stderr)
+                (
+                    input_file,
+                    output_file,
+                    f"Program {PROGRAM} timed out",
+                    expected_output,
+                    (e.stdout or "") + "\n" + (e.stderr or ""),
+                )
             )
             continue
         except subprocess.CalledProcessError as e:

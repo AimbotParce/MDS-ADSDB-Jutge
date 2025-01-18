@@ -2,27 +2,21 @@ import sys
 from collections import deque
 from typing import *
 
-
-def tokenGenerator(input_buffer: TextIO) -> Generator[str, None, None]:
-    for line in input_buffer:
-        if line.strip() == "":
-            continue
-        yield from line.strip().split()
+from yogi import scan
 
 
-def generateNodes(tokens: Iterable[str]) -> List[str]:
-    n = int(next(tokens))
-    nodes = [next(tokens) for _ in range(n)]
+def generateNodes() -> List[str]:
+    n = scan(int)
+    nodes = [scan(str) for _ in range(n)]
     return nodes
 
 
-def generateEdges(tokens: Iterable[str]) -> List[Tuple[str, str]]:
-    n = int(next(tokens))
-    edges = [(next(tokens), next(tokens)) for _ in range(n)]
-    return edges
+def generateEdges() -> Generator[Tuple[str, str], None, None]:
+    n = scan(int)
+    yield from [(scan(str), scan(str)) for _ in range(n)]
 
 
-def getAdjacencyList(nodes: List[str], edges: List[Tuple[str, str]]) -> Dict[str, deque[str]]:
+def getAdjacencyList(nodes: Iterable[str], edges: Iterable[Tuple[str, str]]) -> Dict[str, deque[str]]:
     adj_list = {node: deque[str]() for node in nodes}
     for u, v in edges:
         adj_list[u].append(v)
@@ -45,14 +39,11 @@ def searchBFS(adj_list: Dict[str, deque[str]], start: str, target: str) -> List[
 
 
 if __name__ == "__main__":
-    tokens = tokenGenerator(sys.stdin)
-    nodes = generateNodes(tokens)
-    next(sys.stdin)  # Read one empty line because yes
-    edges = generateEdges(tokens)
-    next(sys.stdin)  # Read one empty line because yes
+    nodes = generateNodes()
+    edges = generateEdges()
 
     adj_list = getAdjacencyList(nodes, edges)
-    source, target = next(tokens), next(tokens)
+    source, target = scan(int), scan(int)
     if searchBFS(adj_list, source, target):
         print("yes")
     else:

@@ -35,6 +35,16 @@ course from the MDS master at UPC.
    * [P83396](P83396%20Queues%20of%20a%20supermarket%20(2)/P83396.py)   Queues of a supermarket (2)
    * [P40558](P40558%20Sorting%20with%20priority%20queues/P40558.py)   Sorting with priority queues
    * [P59282](P59282%20Statistical%20measures/P59282.py)   Statistical measures
+### 6. BST, Sets and Dictionaries
+   * [P92765](P92765%20Trees%20-%20Searching%20in%20a%20binary%20search%20tree/P92765.py)   Trees - Searching in a binary search treePython
+   * [P92776](P92776%20Trees%20-%20Inserting%20in%20a%20binary%20search%20tree/P92776.py)   Trees - Inserting in a binary search treePython
+   * [P37064](P37064%20Dynamic%20median/P37064.py)   Dynamic medianPython
+   * [P47386](P47386%20Gossip/P47386.py)   GossipPython
+### 7. Graphs
+   * [P56483](P56483%20Graphs%20(1)/P56483.py)   Graphs (1)Python
+   * [P14952](P14952%20Topological%20sort/P14952.py)   Topological sortPython
+   * [P13994](P13994%20Weighted%20shortest%20path%20(2)/P13994.py)   Weighted shortest path (2)Python
+   * [P37001](P37001%20Graphs%20(2)/P37001.py)   Graphs (2)Python
 
 
 

@@ -13,7 +13,7 @@ def generateNodes() -> List[str]:
 
 def generateEdges() -> Generator[Tuple[str, str], None, None]:
     n = scan(int)
-    yield from [(scan(str), scan(str)) for _ in range(n)]
+    yield from list((scan(str), scan(str)) for _ in range(n))
 
 
 def getAdjacencyList(nodes: Iterable[str], edges: Iterable[Tuple[str, str]]) -> Dict[str, deque[str]]:

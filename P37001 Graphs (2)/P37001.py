@@ -1,4 +1,3 @@
-import sys
 from collections import deque
 from typing import *
 
@@ -43,7 +42,7 @@ if __name__ == "__main__":
     edges = generateEdges()
 
     adj_list = getAdjacencyList(nodes, edges)
-    source, target = scan(int), scan(int)
+    source, target = scan(str), scan(str)
     if searchBFS(adj_list, source, target):
         print("yes")
     else:

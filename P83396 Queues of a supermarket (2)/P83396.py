@@ -288,7 +288,7 @@ class QueueManager:
         return 0 < queue_number <= len(self.queues)
 
     def getContents(self) -> list[list[str]]:
-        return list(list(n._value for n in q._vector[1:]) for q in self.queues)
+        return list(list(q.extractMax() for _ in range(len(q))) for q in self.queues)
 
 
 def printPreOrder(queue: PriorityQueue, j: int = 1) -> None:

@@ -32,7 +32,7 @@ course from the MDS master at UPC.
    * [Z89043](Z89043%20Insert%20in%20a%20BST/Z89043.py)   Insert in a BST ✅
    * [X37904](X37904%20Maximum%20of%20a%20General%20Tree/X37904.py)   Maximum of a General Tree ✅
 ### 5. Priority Queues, Heap sort
-   * [P83396](P83396%20Queues%20of%20a%20supermarket%20(2)/P83396.py)   Queues of a supermarket (2) 🟥
+   * [P83396](P83396%20Queues%20of%20a%20supermarket%20(2)/P83396.py)   Queues of a supermarket (2) 💣
    * [P40558](P40558%20Sorting%20with%20priority%20queues/P40558.py)   Sorting with priority queues 💣
    * [P59282](P59282%20Statistical%20measures/P59282.py)   Statistical measures 💣
 ### 6. BST, Sets and Dictionaries

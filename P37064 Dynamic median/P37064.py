@@ -1,3 +1,5 @@
+"This solution is the one proposed by the teacher. Not mine."
+
 from collections.abc import MutableMapping
 
 from yogi import scan

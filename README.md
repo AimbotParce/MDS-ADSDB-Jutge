@@ -46,28 +46,9 @@ course from the MDS master at UPC.
    * [P13994](P13994%20Weighted%20shortest%20path%20(2)/P13994.py)   Weighted shortest path (2) ✅
    * [P37001](P37001%20Graphs%20(2)/P37001.py)   Graphs (2) 🟥
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Symbol | Meaning
+---|---
+✅| Problem solved and accepted by Jutge.org
+🟨| Presentation error (Missing a space or newline on some private test)
+💣| Time limit exceeded (Answer takes longer than the one expected by Jutge.org)
+🟥| Wrong answer (Answer is incorrect for some private test)

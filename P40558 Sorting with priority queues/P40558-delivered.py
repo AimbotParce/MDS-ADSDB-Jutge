@@ -1,9 +1,7 @@
 import heapq
-import math
-import re
-import sys
-from collections import deque
 from typing import *
+
+from yogi import scan
 
 T = TypeVar("T")
 
@@ -24,15 +22,9 @@ def heapSort(array: list[T], desc: bool = False) -> list[T]:
     return sorted_array
 
 
-def yieldCases(input_buffer: TextIO) -> Generator[List[int], None, None]:
-    for line in input_buffer:
-        if line.strip() == "":
-            return
-        yield list(map(int, line.split()))
-
-
 if __name__ == "__main__":
-    case = next(yieldCases(sys.stdin))
-    sorted = heapSort(case)
-    print(" ".join(map(str, sorted)))
-    print(" ".join(map(str, reversed(sorted))))
+    case: list[int] = []
+    while (num := scan(int)) is not None:
+        case.append(num)
+    print(" ".join(map(str, heapSort(case))))
+    print(" ".join(map(str, heapSort(case, desc=True))))

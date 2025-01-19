@@ -1,7 +1,5 @@
 import sys
-from typing import Generator, Generic, Iterator, Literal, Optional, Self, TextIO, TypeVar
-
-from yogi import scan
+from typing import Generator, Generic, Literal, Optional, Self, TextIO, TypeVar
 
 T = TypeVar("T")
 
@@ -45,32 +43,32 @@ class BST(Generic[T]):
             return None
         return self.root.val
 
-    def _search(self, node: BTNode[T], value: T) -> bool:
+    def _insert(
+        self,
+        node: Optional[BTNode[T]],
+        value: T,
+        parent: Optional[BTNode[T]] = None,
+        child_type: Literal["l", "r"] = "r",
+    ) -> None:
         if node is None:
-            return False
-        elif value == node.val:
-            return True
+            if child_type == "l":
+                parent.left = BTNode(value)
+            else:
+                parent.right = BTNode(value)
+        elif node.val == value:
+            return
         elif value < node.val:
-            return self._search(node.left, value)
+            self._insert(node.left, value, node, "l")
         else:
-            return self._search(node.right, value)
+            self._insert(node.right, value, node, "r")
 
-    def __contains__(self, val: T) -> bool:
-        "Check if a value is in the tree"
-        return self._search(self.root, val)
-
-
-def _readNodesPreOrder(tokens: Iterator[T]) -> BTNode[T]:
-    "Read a binary tree from pre-order traversal"
-    val = next(tokens)
-    if val == -1 or val is None:
-        return None
-    return BTNode(val, _readNodesPreOrder(tokens), _readNodesPreOrder(tokens))
-
-
-def readTreePreOrder(tokens: Iterator[T]) -> BST[T]:
-    "Read a binary tree from pre-order traversal"
-    return BST(_readNodesPreOrder(tokens))
+    def insert(self, val: T) -> None:
+        "Insert a value into the tree"
+        if self.is_empty:
+            self.root = BTNode(val)
+            return
+        else:
+            self._insert(self.root, val)
 
 
 def yieldTokens(io: TextIO) -> Generator[int, None, None]:
@@ -78,16 +76,22 @@ def yieldTokens(io: TextIO) -> Generator[int, None, None]:
     for line in io:
         line = line.strip()
         if not line:
-            return
-        yield from map(int, line.split())
+            break
+        for token in line.split():
+            yield int(token)
+
+
+def printPreOrder(tree: BST) -> None:
+    if tree.is_empty:
+        return
+    print(tree.val)
+    printPreOrder(tree.left)
+    printPreOrder(tree.right)
 
 
 if __name__ == "__main__":
-    n = scan(int)  # The number of elements, ignored as per the statement
-    tree = readTreePreOrder(yieldTokens(sys.stdin))
+    tree = BST[int]()
+    for value in yieldTokens(sys.stdin):
+        tree.insert(value)
 
-    while (val := scan(int)) is not None:
-        if val in tree:
-            print(val, 1)
-        else:
-            print(val, 0)
+    printPreOrder(tree)

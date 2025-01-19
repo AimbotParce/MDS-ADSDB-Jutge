@@ -153,5 +153,6 @@ def yieldCases(input_buffer: TextIO) -> Generator[List[int], None, None]:
 
 if __name__ == "__main__":
     case = next(yieldCases(sys.stdin))
-    print(" ".join(map(str, heapSort(case))))
-    print(" ".join(map(str, heapSort(case, desc=True))))
+    sorted = heapSort(case)
+    print(" ".join(map(str, sorted)))
+    print(" ".join(map(str, sorted[::-1])))

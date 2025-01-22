@@ -133,6 +133,8 @@ if __name__ == "__main__":
     def concatenate(q_pool: list[LinkedQueue[int]], q1: int, q2: str) -> None:
         q_pool[q1].concatenate(q_pool[int(q2)])
         print(f"queues {q1} and {q2} concatenated")
+        print(f"queue {q1}: {str(q_pool[q1])}")
+        print(f"queue {int(q2)}: {str(q_pool[int(q2))}")        
 
     def len_(q_pool: list[LinkedQueue[int]], q: int) -> None:
         l = len(q_pool[q])
@@ -181,6 +183,3 @@ if __name__ == "__main__":
     queue_pool: ListFrom1[LinkedQueue[int]] = ListFrom1(LinkedQueue[int]() for _ in range(pool_count))
     for operation, queue, args in operationsGenerator(available_operations=operations, input_buffer=sys.stdin):
         operation(queue_pool, queue, *args)
-
-    for i, queue in enumerate(queue_pool, 1):
-        print(f"queue {i}: {str(queue)}")

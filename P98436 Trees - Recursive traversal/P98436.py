@@ -140,5 +140,9 @@ def postOrder(tree: BTree[T]) -> str:
 
 if __name__ == "__main__":
     tree = readTreePreOrder(yieldTokens(sys.stdin))
-    print(f"pos: {postOrder(tree)}")
-    print(f"ino: {inOrder(tree)}")
+    if tree.is_empty:
+        print("pos:")
+        print("ino:")
+    else:
+        print(f"pos: {postOrder(tree)}")
+        print(f"ino: {inOrder(tree)}")

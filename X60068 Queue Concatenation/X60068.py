@@ -134,7 +134,7 @@ if __name__ == "__main__":
         q_pool[q1].concatenate(q_pool[int(q2)])
         print(f"queues {q1} and {q2} concatenated")
         print(f"queue {q1}: {str(q_pool[q1])}")
-        print(f"queue {int(q2)}: {str(q_pool[int(q2))}")        
+        print(f"queue {int(q2)}: {str(q_pool[int(q2)])}")        
 
     def len_(q_pool: list[LinkedQueue[int]], q: int) -> None:
         l = len(q_pool[q])
